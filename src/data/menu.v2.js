@@ -1,9 +1,12 @@
 // ─────────────────────────────────────────────────────────────────────────
 // MENU VERSION 2  —  updated printed menu (reprinted laminated card)
 // ─────────────────────────────────────────────────────────────────────────
-// Currently ACTIVE. Changes vs v1: ~36 price updates, 5 new items, and 2
+// Currently ACTIVE. Changes vs v1: ~36 price updates, 7 new items, and 3
 // structural changes (Parval/Bhindi/Karela merged into one line; Paneer
-// Tikka → "Paneer Tikka / Masala" dual price). Full diff in VERSIONS.md.
+// Tikka and millet roti each split into two items). Full diff in VERSIONS.md.
+//
+// Every orderable item has ONE price: the cart charges priceNum, so lines the
+// card prints with two prices (Tikka/Masala, Plain/Butter) are separate items.
 //
 // To roll back to the old prices, set ACTIVE_MENU_VERSION = 'v1' in ./menu.js
 // (and re-run `node scripts/seed-menu.mjs` so the live DB matches).
@@ -108,12 +111,12 @@ export const menuCategories = [
       { id: 'paneer-garlic', name: 'Paneer Garlic', price: '₹260', priceNum: 260 },
       {
         id: 'paneer-tikka',
-        name: 'Paneer Tikka / Masala',
-        price: '₹200 / ₹240',
+        name: 'Paneer Tikka',
+        price: '₹200',
         priceNum: 200,
         tags: ['Tandoor'],
-        description: '₹200 tikka · ₹240 masala',
       },
+      { id: 'paneer-tikka-masala', name: 'Paneer Tikka Masala', price: '₹240', priceNum: 240 },
     ],
   },
   {
@@ -234,10 +237,15 @@ export const menuCategories = [
       { id: 'lachha-parantha', name: 'Lachha Parantha', price: '₹40', priceNum: 40 },
       {
         id: 'millet-roti',
-        name: 'Bajara / Ragi / Makka / Jowar Roti',
-        price: '₹20 / ₹25',
+        name: 'Bajara / Ragi / Makka / Jowar Roti (Plain)',
+        price: '₹20',
         priceNum: 20,
-        description: '₹20 plain · ₹25 buttered',
+      },
+      {
+        id: 'millet-roti-butter',
+        name: 'Bajara / Ragi / Makka / Jowar Roti (Butter)',
+        price: '₹25',
+        priceNum: 25,
       },
     ],
   },

@@ -53,7 +53,8 @@ insert into public.menu_items
   ('palak-paneer', 'paneer', 'Palak Paneer', null, '₹200', 200, '{}'::text[], true, false, 9),
   ('paneer-chatpatta', 'paneer', 'Paneer Chatpatta', null, '₹260', 260, '{}'::text[], true, false, 10),
   ('paneer-garlic', 'paneer', 'Paneer Garlic', null, '₹260', 260, '{}'::text[], true, false, 11),
-  ('paneer-tikka', 'paneer', 'Paneer Tikka / Masala', '₹200 tikka · ₹240 masala', '₹200 / ₹240', 200, array['Tandoor']::text[], true, true, 12),
+  ('paneer-tikka', 'paneer', 'Paneer Tikka', null, '₹200', 200, array['Tandoor']::text[], true, true, 12),
+  ('paneer-tikka-masala', 'paneer', 'Paneer Tikka Masala', null, '₹240', 240, '{}'::text[], true, false, 13),
   ('soya-veggets', 'soya', 'Soya Veggets', null, '₹150', 150, '{}'::text[], true, false, 1),
   ('soya-ball-manchurian', 'soya', 'Soya Ball Manchurian', null, '₹160', 160, '{}'::text[], true, false, 2),
   ('soya-chikka-butter', 'soya', 'Soya Chikka Butter Masala', null, '₹200', 200, '{}'::text[], true, false, 3),
@@ -92,7 +93,8 @@ insert into public.menu_items
   ('paneer-parantha', 'roti', 'Paneer Parantha', null, '₹70', 70, '{}'::text[], true, false, 9),
   ('gobhi-parantha', 'roti', 'Gobhi Parantha', null, '₹70', 70, '{}'::text[], true, false, 10),
   ('lachha-parantha', 'roti', 'Lachha Parantha', null, '₹40', 40, '{}'::text[], true, false, 11),
-  ('millet-roti', 'roti', 'Bajara / Ragi / Makka / Jowar Roti', '₹20 plain · ₹25 buttered', '₹20 / ₹25', 20, '{}'::text[], true, false, 12),
+  ('millet-roti', 'roti', 'Bajara / Ragi / Makka / Jowar Roti (Plain)', null, '₹20', 20, '{}'::text[], true, false, 12),
+  ('millet-roti-butter', 'roti', 'Bajara / Ragi / Makka / Jowar Roti (Butter)', null, '₹25', 25, '{}'::text[], true, false, 13),
   ('jeera-rice', 'rice', 'Jeera Rice', null, '₹100', 100, '{}'::text[], true, false, 1),
   ('steam-rice-fine', 'rice', 'Steam Rice (Fine)', null, '₹70', 70, '{}'::text[], true, false, 2),
   ('steam-rice-miniket', 'rice', 'Steam Rice (Miniket)', null, '₹50', 50, '{}'::text[], true, false, 3),
@@ -145,7 +147,7 @@ on conflict (id) do update set
 -- 3) Deactivate items this version removed (e.g. the merged bhujiyas) ----------
 update public.menu_items
    set is_active = false, updated_at = now()
- where id not in ('thali-rice-half-butter-roti', 'thali-rice', 'thali-roti', 'thali-butter-roti', 'thali-basmati', 'thali-green-veg', 'thali-special', 'thali-chinese', 'paneer-butter-masala', 'shahi-paneer', 'malai-kofta', 'mattar-paneer', 'paneer-pakoda', 'paneer-do-pyaja', 'paneer-kadhai', 'mix-veg', 'palak-paneer', 'paneer-chatpatta', 'paneer-garlic', 'paneer-tikka', 'soya-veggets', 'soya-ball-manchurian', 'soya-chikka-butter', 'soya-chop-stick', 'soya-bhurji', 'soya-chilli', 'mushroom-butter-masala', 'mushroom-do-pyaja', 'mushroom-kadhai', 'mushroom-capsicum', 'mushroom-garlic', 'chana-masala', 'aloo-trio', 'aloo-gobhi-trio', 'gobhi-parwal-bhindi', 'dal-fry', 'butter-dal-fry', 'paneer-tadka', 'butter-tadka', 'plain-tadka', 'dal-makhani', 'aloo-bhujiya', 'parval-bhindi-karela-bhujiya', 'gobhi-bhujiya', 'punjabi-kadi-pakoda', 'baingan-bharta', 'paneer-bhujiya', 'tawa-roti', 'butter-tawa-roti', 'tandoori-roti', 'butter-tandoori-roti', 'plain-parantha', 'butter-naan', 'stuff-naan', 'aloo-parantha', 'paneer-parantha', 'gobhi-parantha', 'lachha-parantha', 'millet-roti', 'jeera-rice', 'steam-rice-fine', 'steam-rice-miniket', 'veg-biryani', 'veg-fried-rice', 'veg-pulao', 'mutter-pulao', 'plain-dosa', 'masala-dosa', 'onion-dosa', 'masala-paneer-dosa', 'butter-masala-dosa', 'cheese-plain-dosa', 'cheese-masala-dosa', 'uttapam', 'idli-sambar', 'veg-chowmein', 'special-chowmein', 'mushroom-chilli', 'paneer-chilli', 'veg-manchurian', 'papad', 'green-salad', 'onion-salad', 'raita', 'dahi-milk', 'shake-chocolate', 'shake-vanilla', 'shake-strawberry', 'shake-oreo', 'shake-butterscotch', 'shake-blackcurrent', 'lassi', 'chhachh', 'gulab-jamun', 'ras-malai', 'kheer')
+ where id not in ('thali-rice-half-butter-roti', 'thali-rice', 'thali-roti', 'thali-butter-roti', 'thali-basmati', 'thali-green-veg', 'thali-special', 'thali-chinese', 'paneer-butter-masala', 'shahi-paneer', 'malai-kofta', 'mattar-paneer', 'paneer-pakoda', 'paneer-do-pyaja', 'paneer-kadhai', 'mix-veg', 'palak-paneer', 'paneer-chatpatta', 'paneer-garlic', 'paneer-tikka', 'paneer-tikka-masala', 'soya-veggets', 'soya-ball-manchurian', 'soya-chikka-butter', 'soya-chop-stick', 'soya-bhurji', 'soya-chilli', 'mushroom-butter-masala', 'mushroom-do-pyaja', 'mushroom-kadhai', 'mushroom-capsicum', 'mushroom-garlic', 'chana-masala', 'aloo-trio', 'aloo-gobhi-trio', 'gobhi-parwal-bhindi', 'dal-fry', 'butter-dal-fry', 'paneer-tadka', 'butter-tadka', 'plain-tadka', 'dal-makhani', 'aloo-bhujiya', 'parval-bhindi-karela-bhujiya', 'gobhi-bhujiya', 'punjabi-kadi-pakoda', 'baingan-bharta', 'paneer-bhujiya', 'tawa-roti', 'butter-tawa-roti', 'tandoori-roti', 'butter-tandoori-roti', 'plain-parantha', 'butter-naan', 'stuff-naan', 'aloo-parantha', 'paneer-parantha', 'gobhi-parantha', 'lachha-parantha', 'millet-roti', 'millet-roti-butter', 'jeera-rice', 'steam-rice-fine', 'steam-rice-miniket', 'veg-biryani', 'veg-fried-rice', 'veg-pulao', 'mutter-pulao', 'plain-dosa', 'masala-dosa', 'onion-dosa', 'masala-paneer-dosa', 'butter-masala-dosa', 'cheese-plain-dosa', 'cheese-masala-dosa', 'uttapam', 'idli-sambar', 'veg-chowmein', 'special-chowmein', 'mushroom-chilli', 'paneer-chilli', 'veg-manchurian', 'papad', 'green-salad', 'onion-salad', 'raita', 'dahi-milk', 'shake-chocolate', 'shake-vanilla', 'shake-strawberry', 'shake-oreo', 'shake-butterscotch', 'shake-blackcurrent', 'lassi', 'chhachh', 'gulab-jamun', 'ras-malai', 'kheer')
    and is_active = true;
 
 commit;

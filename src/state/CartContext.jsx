@@ -9,7 +9,10 @@ import { restaurant } from '../config/restaurant.js';
 // a denormalised name/price snapshot so the cart still renders correctly
 // even if the menu data changes later.
 
-const STORAGE_KEY = 'kb-cart-v1';
+// Bump the version whenever menu prices change: carts saved under the old
+// key hold old price snapshots and are dropped instead of being charged.
+// v2 — menu v2 pricing (Nov 2026 printed card).
+const STORAGE_KEY = 'kb-cart-v2';
 
 const CartContext = createContext(null);
 

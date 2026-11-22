@@ -33,7 +33,7 @@ back instantly.
 
 ## v2 — updated laminated menu card  *(active)*
 
-~36 price changes, 5 new items, 2 structural changes. Everything else is
+~36 price changes, 7 new items, 3 structural changes. Everything else is
 unchanged from v1.
 
 ### New items
@@ -44,13 +44,23 @@ unchanged from v1.
 | Bhujiya | Baingan Bharta | ₹80 |
 | Milkshakes | Lassi | ₹60 |
 | Milkshakes | Chhachh (Buttermilk) | ₹50 |
+| Paneer | Paneer Tikka Masala (`paneer-tikka-masala`) | ₹240 |
+| Roti | Bajara / Ragi / Makka / Jowar Roti (Butter) (`millet-roti-butter`) | ₹25 |
 
 ### Structural changes
 - **Bhujiya:** `parval-bhujiya` + `bhindi-bhujiya` + `karela-bhujiya` (3 items,
   ₹90 each) merged into one line `parval-bhindi-karela-bhujiya` — "Parval /
   Bhindi / Karela Bhujiya" ₹90. (The seed script deactivates the 3 old ids.)
-- **Paneer:** `paneer-tikka` renamed "Paneer Tikka" → "Paneer Tikka / Masala"
-  with dual price **₹200 / ₹240** (was a single ₹270). Id kept stable.
+- **Paneer:** the card's "Paneer Tikka / Masala ₹200 / 240" is two items:
+  `paneer-tikka` "Paneer Tikka" ₹200 (was ₹270) and new `paneer-tikka-masala`
+  "Paneer Tikka Masala" ₹240.
+- **Roti:** "Bajara / Ragi / Makka / Jowar (Plain/Butter) ₹20/25" is two items:
+  `millet-roti` "(Plain)" ₹20 and new `millet-roti-butter` "(Butter)" ₹25.
+
+Why split: the cart charges one `priceNum` per item, so a dual-price line
+charged everyone the lower price (₹200 for Tikka Masala, ₹20 for butter roti).
+The cart's localStorage key was bumped to `kb-cart-v2` so carts saved with v1
+prices are dropped rather than checked out at old prices.
 
 ### Price changes (existing items)
 | Category | Item | v1 | v2 |
