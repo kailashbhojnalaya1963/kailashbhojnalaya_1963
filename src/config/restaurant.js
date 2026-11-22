@@ -77,7 +77,7 @@ export const restaurant = {
   // post-discount supply value).
   promotion: {
     percent: 10,
-    label: 'July Special',
+    label: 'Kailash Specials',
     badge: '10% off this month',
     description: '10% off all orders this month — applied automatically at checkout.',
   },
