@@ -92,12 +92,41 @@ async function seedItems() {
   }
 }
 
+// After upserting, any menu_items still in the DB whose id is NOT in the
+// current menu data are stale — e.g. items that a newer menu version merged
+// or removed (the Parval/Bhindi/Karela bhujiya merge in v2 is the first case).
+// A plain upsert never touches them, so they'd keep showing. We deactivate
+// (is_active=false) rather than hard-delete: it hides them from the site and
+// a version rollback simply re-activates them on the next seed.
+async function deactivateRemovedItems() {
+  const currentIds = menuCategories.flatMap((cat) => cat.items.map((i) => i.id));
+  const inList = `(${currentIds.join(',')})`;
+
+  const { data, error } = await supabase
+    .from('menu_items')
+    .update({ is_active: false })
+    .eq('is_active', true)
+    .not('id', 'in', inList)
+    .select('id');
+
+  if (error) throw new Error(`deactivating removed items failed: ${error.message}`);
+
+  if (data && data.length) {
+    console.log(
+      `✓ menu_items — deactivated ${data.length} stale item(s): ${data.map((r) => r.id).join(', ')}`
+    );
+  } else {
+    console.log('✓ menu_items — no stale items to deactivate');
+  }
+}
+
 async function main() {
   console.log(`Seeding Supabase at ${url}\n`);
   await seedCategories();
   await seedItems();
+  await deactivateRemovedItems();
   console.log(
-    '\n✅ Done. The public site (once menuService is wired to read from DB) and the admin dashboard will both see this data.'
+    '\n✅ Done. The public site and the admin dashboard will both see this data.'
   );
 }
 
